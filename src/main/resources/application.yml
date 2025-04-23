@@ -1,5 +1,6 @@
 server:
   shutdown: "immediate"
+  port: 0
 
 spring:
   main:
@@ -9,22 +10,38 @@ spring:
       enabled: always
 
   application:
-    name: vector-store-loader  
+    name: vector-store-loader
 
-  ai:    
+  cloud:
+    function:
+      definition: fileSupplier|documentReader|splitter|vectorStoreConsumer
+
+  ai:
     openai:
       api-key: lm-studio
-    #   base-url: http://localhost:1234
+      base-url: http://localhost:1234
     #   chat:
     #     options:
     #       stream-usage: true
     #       model: meta-llama-3.1-8b-instruct
     #       temperature: 0.5
+    vectorstore:
+      qdrant:
+        host: localhost
+        port: 6334
+        collection-name: books
+        initialize-schema: true
 
     retry:
       max-attempts: 1
 
+file:
+  supplier:
+    directory: C:/Users/a.nelli/Downloads/books
+    # filename-regex: .*\.(pdf|docx|txt)
+
 logging:
   level:
     "[org.springframework.ai]": DEBUG
+    "[lan.home]": DEBUG
     web: DEBUG

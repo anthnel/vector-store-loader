@@ -4,9 +4,12 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.document.MetadataMode;
 import org.springframework.ai.model.NoopApiKey;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.OpenAiEmbeddingModel;
+import org.springframework.ai.openai.OpenAiEmbeddingOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +46,18 @@ public class AiConfig {
                 .defaultOptions(openApiChatOptions)
                 .build();
 
+    }
+
+    @Bean
+    OpenAiEmbeddingOptions openAiEmbeddingOptions() {
+        return OpenAiEmbeddingOptions.builder()
+                .model("text-embedding-granite-embedding-278m-multilingual")
+                .build();
+    }
+
+    @Bean
+    OpenAiEmbeddingModel embeddingModel(OpenAiApi openAiApi, OpenAiEmbeddingOptions openAiEmbeddingOptions) {
+        return new OpenAiEmbeddingModel(openAiApi, MetadataMode.EMBED, openAiEmbeddingOptions);
     }
 
     @Bean
