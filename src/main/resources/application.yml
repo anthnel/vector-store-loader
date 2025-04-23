@@ -1,0 +1,30 @@
+server:
+  shutdown: "immediate"
+
+spring:
+  main:
+    banner-mode: off
+  output:
+    ansi:
+      enabled: always
+
+  application:
+    name: vector-store-loader  
+
+  ai:    
+    openai:
+      api-key: lm-studio
+    #   base-url: http://localhost:1234
+    #   chat:
+    #     options:
+    #       stream-usage: true
+    #       model: meta-llama-3.1-8b-instruct
+    #       temperature: 0.5
+
+    retry:
+      max-attempts: 1
+
+logging:
+  level:
+    "[org.springframework.ai]": DEBUG
+    web: DEBUG
